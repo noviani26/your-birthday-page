@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Birthday Quiz for Uzi</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  body {
+    font-family: 'Courier New', monospace;
+    background: linear-gradient(135deg, #fbb1bd, #a2cffe);
+    height: 100vh; margin: 0; display: flex;
+    justify-content: center; align-items: center; text-align: center;
+    color: #fff;
+  }
+  .screen { display: none; max-width: 600px; }
+  .active { display: block; }
+  h1 { font-size: 1.8em; }
+  button {
+    margin-top: 20px; padding: 10px 20px;
+    border: none; border-radius: 12px;
+    background: #ff85a2; color: white; font-size: 1em;
+    cursor: pointer; transition: 0.3s;
+  }
+  button:hover { background: #7bb4ff; }
+  .options button { display: block; margin: 10px auto; width: 200px; }
+  .letters { margin-top: 20px; font-size: 1.5em; letter-spacing: 5px; }
+  input {
+    width: 40px; height: 40px; text-align: center;
+    font-size: 1.2em; text-transform: uppercase;
+    border-radius: 6px; border: 2px solid #fff;
+    margin: 3px; background: transparent; color: #fff;
+  }
+  input:focus { outline: 2px solid #ff85a2; }
+
+  /* Custom font for screen 4 */
+  #screen4 h1 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.2em;
+    color: #ffedf3;
+  }
+  #screen4 p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1em;
+    line-height: 1.6;
+    color: #fff;
+    background: rgba(255,255,255,0.1);
+    padding: 20px;
+    border-radius: 12px;
+  }
+  /* Tombol Spotify */
+  .spotify-btn {
+    background:#1DB954; color:#fff; border:none;
+    border-radius:30px; padding:12px 24px;
+    font-size:1em; display:flex; align-items:center;
+    gap:10px; margin:25px auto 0; cursor:pointer;
+    justify-content:center;
+  }
+  .spotify-btn svg { flex-shrink:0; }
+</style>
+</head>
+<body>
+
+<!-- Screen 1: Intro -->
+<div class="screen active" id="screen1">
+  <h1>Haiii uziiaan👋🏻<br>Ada beberapa pertanyaan untukmu</h1>
+  <button onclick="nextScreen(2)">Klik di sini untuk mulai</button>
+</div>
+
+<!-- Screen 2: Quiz -->
+<div class="screen" id="screen2">
+  <h1 id="question"></h1>
+  <div class="options" id="options"></div>
+</div>
+
+<!-- Screen 3: Huruf Game -->
+<div class="screen" id="screen3">
+  <h1>Isi huruf berdasarkan pertanyaan<br><br></h1>
+  <p id="letterQuestion"></p>
+  <input id="letterInput" maxlength="1">
+  <button onclick="submitLetter()">Jawab</button>
+  <div class="letters" id="progress"></div>
+  <button id="doneBtn" style="display:none;" onclick="nextScreen(4)">Lanjut 🎁</button>
+</div>
+
+<!-- Screen 4: Personal Message + Spotify -->
+<div class="screen" id="screen4">
+  <h1>all the best on your special day uzii</h1>
+  <p>
+    Another number is added, and another part of life is taken away.  
+    No celebration is needed, at home it is enough to share prayers.  
+    May what is added be goodness, and what is reduced be complaints, so that kind prayers may echo across the sky.  
+
+    May you be kept away from all neglect in worship. But may you truly be distracted only from the things that would pull you away from goodness.  
+
+    May health, sustenance, and every form of goodness never be a request too difficult for the Giver to grant.  
+    I say “aamiin” to every prayer and every good intention, may they echo and be sent down upon you today.  
+
+    Lastly, may you be granted happiness this year and for all the years to come.  
+  </p>
+
+  <!-- Tombol Spotify -->
+  <button class="spotify-btn" onclick="window.open('https://open.spotify.com/track/3vD9Pt5zHFzqPadRTYcXts','_blank')">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 496 512" width="22" height="22">
+      <path d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 
+      248-248S385 8 248 8zm121.6 365.6c-5.2 0-8.4-1.6-13.2-4-71.2-42.4-160.8-51.6-265.6-27.6-6.8 
+      1.6-13.6-2.8-15.2-9.6s2.8-13.6 9.6-15.2c112-25.2 208-15.2 
+      286.4 31.2 6 3.6 8 12 4.4 18-2.8 3.6-7.2 6.8-12.4 6.8zm18.4-65.6c-6.4 
+      0-10.4-2.4-15.2-5.2-81.2-48.4-204-62.8-299.6-33.6-7.2 
+      2-14.8-2-16.8-9.2s2-14.8 9.2-16.8c104.8-31.6 236.8-16.8 
+      326.8 37.6 6.8 4 9.2 12.8 5.2 19.6-2.4 5.2-7.6 7.6-12.8 
+      7.6zm20.8-70.8c-6.4 0-10.4-2.4-16-5.6-92-54.8-244.8-60.8-334.4-33.2-8 
+      2.4-16.8-2-19.2-10s2-16.8 10-19.2c99.2-30 262.4-24.4 
+      364 36.4 7.2 4.4 9.6 13.6 5.2 20.8-2.8 4.8-7.6 7.6-12.8 7.6z"/>
+    </svg>
+    <span>Buka di Spotify</span>
+  </button>
+</div>
+
+<script>
+// ----------------- Navigation -----------------
+function nextScreen(n){
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen'+n).classList.add('active');
+  if(n===2) showQuiz();
+  if(n===3) startLetterGame();
+}
+
+// ----------------- Quiz -----------------
+const quizQuestions = [
+  {q:"Kalau lagi santai, kamu lebih suka?", o:["Tidur 😴","Jalan-jalan 🚶","Nonton 🎬"]},
+  {q:"Makanan favoritmu lebih ke?", o:["Manis 🍫","Asin 🍟","Pedas 🌶️"]},
+  {q:"Kalau ada libur panjang, pilihannya?", o:["Pantai 🏖️","Gunung ⛰️","hibernasi🦍"]}
+];
+let qIndex = 0;
+
+function showQuiz(){
+  if(qIndex < quizQuestions.length){
+    let q = quizQuestions[qIndex];
+    document.getElementById('question').innerText = q.q;
+    let ops = document.getElementById('options');
+    ops.innerHTML = '';
+    q.o.forEach(opt=>{
+      let btn = document.createElement('button');
+      btn.innerText = opt;
+      btn.onclick = ()=>{ qIndex++; showQuiz(); };
+      ops.appendChild(btn);
+    });
+  } else {
+    nextScreen(3);
+  }
+}
+
+// ----------------- Huruf Game -----------------
+const targetWord = "HAPPYBIRTHDAY".split("");
+const letterQuestions = [
+  "Awal huruf dari kata harimau?", // H
+  "Huruf pertama dari nama kamu?",    // A
+  "Huruf kedua dari kata apel?", // P
+  "Huruf konsonan yang muncul dua kali di kata bahagia (in english)?", // P
+  "temennya huruf Z?", // Y
+  "Huruf yang bunyinya sama dengan kata lebah (in english)?", // B
+  "Huruf kesembilan?", // I
+  "Huruf terakhir dari kata tidur?", // R
+  "Huruf ketiga dari kata hutan?", // T
+  "Huruf pertama dari kata Hari?", // H
+  "Huruf pertama dari kata Donat?", // D
+  "Huruf pertama dari kata Ayam?", // A
+  "Huruf pertama dari kata Yogurt?" // Y
+];
+let lIndex = 0;
+let progress = [];
+
+function startLetterGame(){
+  lIndex = 0;
+  progress = Array(targetWord.length).fill("_");
+  document.getElementById('progress').innerText = progress.join(" ");
+  showLetterQuestion();
+}
+
+function showLetterQuestion(){
+  document.getElementById('letterQuestion').innerText = letterQuestions[lIndex];
+  document.getElementById('letterInput').value = '';
+}
+
+function submitLetter(){
+  let inp = document.getElementById('letterInput').value.toUpperCase();
+  if(inp === targetWord[lIndex]){
+    progress[lIndex] = inp;
+    document.getElementById('progress').innerText = progress.join(" ");
+    lIndex++;
+    if(lIndex < targetWord.length){
+      showLetterQuestion();
+    } else {
+      document.getElementById('letterQuestion').innerText = "🎉 Horeee! Kata sudah lengkap!";
+      document.getElementById('letterInput').style.display = 'none';
+      document.querySelector("#screen3 button").style.display = 'none';
+      document.getElementById('doneBtn').style.display = 'inline-block';
+    }
+  } else {
+    alert("Ups, coba lagi ya wkwk");
+  }
+}
+</script>
+</body>
+</html>
